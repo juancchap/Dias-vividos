@@ -1,48 +1,46 @@
 
 package dias_vividos;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.Period;
 import java.util.Scanner;
+
+
 public class Dias_vividos {
 
   
     public static void main(String[] args) {
-       
-          // Obtener la fecha actual
+           Scanner scanner = new Scanner(System.in);
+
+        // Solicitar la fecha de nacimiento
+        System.out.println("Ingresa tu fecha de nacimiento (AAAA-MM-DD): ");
+        String fechaNacimientoString = scanner.nextLine();
+
+        // Convertir la cadena de fecha a LocalDate
+        LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoString);
+
+        // Obtener la fecha actual
         LocalDate fechaActual = LocalDate.now();
 
-        // Obtener la fecha de nacimiento del usuario
-        LocalDate fechaNacimiento = obtenerFechaNacimiento();
+        // Calcular la diferencia entre las dos fechas
+        Period periodo = Period.between(fechaNacimiento, fechaActual);
 
-        // Calcular la edad en semanas y días
-        long semanasVividas = calcularSemanasVividas(fechaNacimiento, fechaActual);
-        long diasVividos = calcularDiasVividos(fechaNacimiento, fechaActual);
+        // Obtener el número de años, meses y días
+        int años = periodo.getYears();
+        int meses = periodo.getMonths();
+        int días = periodo.getDays();
 
-        // Mostrar resultados
-        System.out.println("Has vivido aproximadamente:");
-        System.out.println(semanasVividas + " semanas");
-        System.out.println(diasVividos + " dias");
+        // Calcular el número de semanas
+        long semanas = fechaNacimiento.until(fechaActual).toTotalMonths() / 4;
+
+        // Mostrar el resultado
+        System.out.println("Has vivido:");
+        System.out.println("Años: " + años);
+        System.out.println("Meses: " + meses);
+        System.out.println("Días: " + días);
+        System.out.println("Semanas: " + semanas);
+
+        // Cerrar el escáner
+        scanner.close();
     }
-
-    private static LocalDate obtenerFechaNacimiento() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Por favor, ingresa tu fecha de nacimiento (formato dd/MM/yyyy): ");
-        String inputFecha = scanner.nextLine();
-
-        // Convertir la cadena de entrada a un objeto LocalDate
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(inputFecha, formatter);
-    }
-
-    private static long calcularSemanasVividas(LocalDate fechaNacimiento, LocalDate fechaActual) {
-        return fechaNacimiento.until(fechaActual).toTotalMonths() / 4;
-    }
-
-    private static long calcularDiasVividos(LocalDate fechaNacimiento, LocalDate fechaActual) {
-        return fechaNacimiento.until(fechaActual).getDays();
-        
-        
-        
-    }
-    
 }
