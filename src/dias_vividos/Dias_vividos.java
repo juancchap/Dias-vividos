@@ -21,7 +21,7 @@ public class Dias_vividos {
         // Mostrar resultados
         System.out.println("Has vivido aproximadamente:");
         System.out.println(semanasVividas + " semanas");
-        System.out.println(diasVividos + " días");
+        System.out.println(diasVividos + " dias");
     }
 
     private static LocalDate obtenerFechaNacimiento() {
